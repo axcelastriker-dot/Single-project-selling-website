@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeVault — Premium Source Code Access</title>
+  <meta name="description" content="Subscribe to get instant browser-based view access to a complete, professionally written project. Study real-world code with syntax highlighting and folder navigation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+  <!-- ============================
+       NAVBAR
+  ============================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">CodeVault</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#preview">Preview</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <a href="#pricing" class="btn btn-nav">Get Access</a>
+    </div>
+  </nav>
+
+  <!-- ============================
+       HERO
+  ============================== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        View-Only · Subscription Access
+      </div>
+      <h1 class="hero-title">
+        Study Real-World Code.<br />
+        <span class="gradient-text">No Downloads. No Leaks.</span>
+      </h1>
+      <p class="hero-sub">
+        Get instant browser-based view access to a complete, production-grade project. 
+        Navigate the full folder structure, read every file with syntax highlighting — 
+        safely locked inside your browser.
+      </p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn btn-primary" id="hero-cta">Subscribe Now</a>
+        <a href="#preview" class="btn btn-ghost">See What's Inside →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">Full Project</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Files</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Browser Secure</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="code-window">
+        <div class="window-bar">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="window-title">server.js</span>
+        </div>
+        <div class="code-content" aria-hidden="true">
+          <pre class="hero-code"><code><span class="c-kw">const</span> <span class="c-var">express</span> <span class="c-op">=</span> <span class="c-fn">require</span>(<span class="c-str">'express'</span>);
+<span class="c-kw">const</span> <span class="c-var">app</span> <span class="c-op">=</span> <span class="c-fn">express</span>();
+
+<span class="c-var">app</span>.<span class="c-fn">use</span>(express.<span class="c-fn">json</span>());
+<span class="c-var">app</span>.<span class="c-fn">use</span>(<span class="c-str">'/api'</span>, <span class="c-var">apiRouter</span>);
+
+<span class="c-cm">// Auth middleware</span>
+<span class="c-kw">const</span> <span class="c-fn">authMiddleware</span> <span class="c-op">=</span> <span class="c-kw">async</span> (<span class="c-var">req</span>, <span class="c-var">res</span>, <span class="c-var">next</span>) <span class="c-op">=></span> {
+  <span class="c-kw">const</span> <span class="c-var">token</span> <span class="c-op">=</span> <span class="c-var">req</span>.<span class="c-var">headers</span>[<span class="c-str">'authorization'</span>];
+  <span class="c-kw">if</span> (<span class="c-op">!</span><span class="c-var">token</span>) <span class="c-kw">return</span> <span class="c-var">res</span>.<span class="c-fn">status</span>(<span class="c-num">401</span>).<span class="c-fn">json</span>({ <span class="c-var">error</span>: <span class="c-str">'Unauthorized'</span> });
+  <span class="c-var">next</span>();
+};
+
+<span class="c-var">app</span>.<span class="c-fn">listen</span>(<span class="c-num">3000</span>, () <span class="c-op">=></span> {
+  console.<span class="c-fn">log</span>(<span class="c-str">'Server running on port 3000'</span>);
+});</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FEATURES
+  ============================== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">What You Get</p>
+        <h2 class="section-title">Everything you need to learn, nothing you shouldn't have</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🗂️</div>
+          <h3>Full Folder Explorer</h3>
+          <p>Navigate the complete project structure — every folder and file, exactly as it was built.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✨</div>
+          <h3>Syntax Highlighting</h3>
+          <p>Read code with full color-coded syntax for JS, HTML, CSS, JSON, and more.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>View-Only Access</h3>
+          <p>Code is displayed securely in your browser. No downloads, no clipboard copying.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Instant Access</h3>
+          <p>Pay once and unlock the viewer immediately — no waiting, no email confirmation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Any Device</h3>
+          <p>Works on desktop and tablet. Study code from anywhere with a browser.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Always Updated</h3>
+          <p>Your subscription gives access to the latest version of the project throughout your plan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       PREVIEW (blurred teaser)
+  ============================== -->
+  <section class="preview-section" id="preview">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Inside the Vault</p>
+        <h2 class="section-title">A complete, real-world project</h2>
+        <p class="section-sub">Subscribe to unlock the full interactive viewer below.</p>
+      </div>
+      <div class="preview-wrapper">
+        <div class="preview-ui locked">
+          <!-- Sidebar -->
+          <div class="preview-sidebar">
+            <div class="sidebar-header">
+              <span class="folder-icon">📁</span>
+              <span>my-project</span>
+            </div>
+            <ul class="file-tree">
+              <li class="tree-folder open"><span>📂 src</span>
+                <ul>
+                  <li><span>📄 server.js</span></li>
+                  <li><span>📄 app.js</span></li>
+                  <li class="tree-folder"><span>📂 routes</span>
+                    <ul>
+                      <li><span>📄 auth.js</span></li>
+                      <li><span>📄 users.js</span></li>
+                      <li><span>📄 products.js</span></li>
+                    </ul>
+                  </li>
+                  <li class="tree-folder"><span>📂 controllers</span>
+                    <ul>
+                      <li><span>📄 authController.js</span></li>
+                      <li><span>📄 userController.js</span></li>
+                    </ul>
+                  </li>
+                  <li class="tree-folder"><span>📂 models</span>
+                    <ul>
+                      <li><span>📄 User.js</span></li>
+                      <li><span>📄 Product.js</span></li>
+                    </ul>
+                  </li>
+                  <li class="tree-folder"><span>📂 middleware</span>
+                    <ul>
+                      <li><span>📄 auth.js</span></li>
+                      <li><span>📄 errorHandler.js</span></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><span>📄 package.json</span></li>
+              <li><span>📄 .env.example</span></li>
+              <li><span>📄 README.md</span></li>
+            </ul>
+          </div>
+          <!-- Code area -->
+          <div class="preview-code-area">
+            <div class="preview-tab-bar">
+              <div class="preview-tab active">server.js</div>
+            </div>
+            <div class="preview-code-body">
+              <pre><code><!-- blurred code lines --></code></pre>
+            </div>
+          </div>
+          <!-- Lock overlay -->
+          <div class="lock-overlay">
+            <div class="lock-box">
+              <div class="lock-icon">🔐</div>
+              <h3>Subscribers Only</h3>
+              <p>Subscribe to unlock the full interactive code viewer</p>
+              <a href="#pricing" class="btn btn-primary">View Plans</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       PRICING
+  ============================== -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Simple Pricing</p>
+        <h2 class="section-title">Choose your plan</h2>
+        <p class="section-sub">Cancel anytime. Instant access after payment.</p>
+      </div>
+
+      <!-- Toggle -->
+      <div class="plan-toggle-wrapper">
+        <span class="toggle-label" id="lbl-monthly">Monthly</span>
+        <button class="plan-toggle" id="plan-toggle" aria-label="Toggle billing period"></button>
+        <span class="toggle-label" id="lbl-yearly">
+          Yearly <span class="save-badge">Save 33%</span>
+        </span>
+      </div>
+
+      <!-- Cards -->
+      <div class="pricing-cards">
+        <!-- Free card -->
+        <div class="pricing-card">
+          <div class="card-header">
+            <div class="plan-name">Free</div>
+            <div class="plan-price">₹0</div>
+            <div class="plan-period">forever</div>
+          </div>
+          <ul class="plan-features">
+            <li>✅ View file tree only</li>
+            <li>✅ See folder structure</li>
+            <li>❌ No code content</li>
+            <li>❌ No syntax highlighting</li>
+          </ul>
+          <a href="#preview" class="btn btn-outline">Preview Free</a>
+        </div>
+
+        <!-- Pro card -->
+        <div class="pricing-card featured">
+          <div class="popular-badge">Most Popular</div>
+          <div class="card-header">
+            <div class="plan-name">Pro Access</div>
+            <div class="plan-price" id="plan-price">₹99</div>
+            <div class="plan-period" id="plan-period">per month</div>
+          </div>
+          <ul class="plan-features">
+            <li>✅ Full file tree explorer</li>
+            <li>✅ View all source files</li>
+            <li>✅ Syntax highlighted code</li>
+            <li>✅ Instant browser access</li>
+            <li>✅ All future updates</li>
+            <li>✅ Cancel anytime</li>
+          </ul>
+          <button class="btn btn-primary btn-full" id="checkout-btn">
+            <span id="btn-text">Subscribe Monthly — ₹99</span>
+          </button>
+          <p class="card-note">🔒 Secure payment via Razorpay</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FAQ
+  ============================== -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">FAQ</p>
+        <h2 class="section-title">Common questions</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Can I copy or download the code?</button>
+          <div class="faq-a">No. The viewer is read-only. Right-click, text selection, and keyboard shortcuts are disabled on the code panel. This protects the author's work.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What project is inside the vault?</button>
+          <div class="faq-a">A complete full-stack Node.js + Express REST API project with authentication, models, controllers, middleware, and more. Perfect for learning real-world patterns.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">How long does access last?</button>
+          <div class="faq-a">Monthly plan gives 30 days of access. Yearly plan gives 365 days. Access is tied to your browser session on the device used at checkout.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What payment methods are accepted?</button>
+          <div class="faq-a">All major Indian payment methods via Razorpay — UPI, Debit/Credit Cards, Netbanking, and Wallets.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FOOTER
+  ============================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="/" class="logo">
+          <span class="logo-icon">⬡</span>
+          <span class="logo-text">CodeVault</span>
+        </a>
+        <p class="footer-copy">© 2026 CodeVault. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

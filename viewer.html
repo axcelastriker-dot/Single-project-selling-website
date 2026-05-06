@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeVault — Viewer</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+<div class="viewer-layout">
+
+  <!-- ── Sidebar ─────────────────────────────────────── -->
+  <aside class="viewer-sidebar">
+    <div class="viewer-sidebar-header">
+      <h2><span>📁</span> Explorer</h2>
+      <span class="sub-badge">Pro</span>
+    </div>
+    <div class="viewer-tree" id="tree-root"></div>
+  </aside>
+
+  <!-- ── Main ──────────────────────────────────────────── -->
+  <div class="viewer-main">
+
+    <!-- Top bar -->
+    <div class="viewer-topbar">
+      <div class="viewer-topbar-left">
+        <a href="/" class="viewer-logo"><span>⬡</span> CodeVault</a>
+        <span class="viewer-breadcrumb" id="viewer-breadcrumb">— Select a file</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <span class="sub-badge" id="plan-label">Monthly</span>
+        <button onclick="endSession()" style="background:none;border:1px solid var(--border);color:var(--text-dim);padding:0.35rem 0.9rem;border-radius:6px;cursor:pointer;font-size:0.8rem;font-family:inherit;">
+          End Session
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="tab-bar" id="tab-bar"></div>
+
+    <!-- Code area -->
+    <div class="code-area" id="code-area"
+      oncontextmenu="return false"
+      ondragstart="return false"
+      onselectstart="return false">
+      <div class="welcome-msg">
+        <div class="icon">📂</div>
+        <p>Select a file from the explorer to view its code.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script type="module" src="/src/viewer.js"></script>
+</body>
+</html>
