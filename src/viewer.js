@@ -1,22 +1,80 @@
 // ── Viewer page logic ─────────────────────────────────────────────
 import { PROJECT_TREE, FILE_CONTENTS } from './project-data.js';
+import { supabase } from './supabaseClient.js';
 
-// ── Session guard ─────────────────────────────────────────────────
-(function guardSession() {
-  const subscribed = sessionStorage.getItem('cv_subscribed');
-  const expires    = parseInt(sessionStorage.getItem('cv_expires') || '0');
-  if (!subscribed || Date.now() > expires) {
-    sessionStorage.removeItem('cv_subscribed');
+// ── Session & Subscription guard ───────────────────────────────────
+(async function guardSession() {
+  const { data: { session } } = await supabase.auth.getSession();
+  
+  if (!session) {
     window.location.href = '/';
+    return;
+  }
+
+  // Check database for active subscription
+  const { data: subs, error } = await supabase
+    .from('subscriptions')
+    .select('plan_id, expires_at')
+    .eq('user_id', session.user.id)
+    .gt('expires_at', new Date().toISOString())
+    .order('expires_at', { ascending: false })
+    .limit(1);
+
+  if (error || !subs || subs.length === 0) {
+    window.location.href = '/';
+    return;
+  }
+
+  // Set plan label in UI
+  const plan = subs[0].plan_id;
+  const expiryDate = new Date(subs[0].expires_at);
+  const planLabel = document.getElementById('plan-label');
+  if (planLabel) planLabel.textContent = plan === 'yearly' ? 'Yearly' : 'Monthly';
+
+  // Check for expiry warning (7 days before)
+  const now = new Date();
+  const diffTime = expiryDate.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  console.log('Subscription Expiry Debug:', {
+    expiryDate: expiryDate.toISOString(),
+    now: now.toISOString(),
+    diffDays: diffDays
+  });
+
+  if (diffDays <= 7 && diffDays >= 0) {
+    showExpiryWarning(diffDays);
   }
 })();
 
-// ── Plan label ────────────────────────────────────────────────────
-const plan = sessionStorage.getItem('cv_plan') || 'monthly';
-const planLabel = document.getElementById('plan-label');
-if (planLabel) planLabel.textContent = plan === 'yearly' ? 'Yearly' : 'Monthly';
+function showExpiryWarning(days) {
+  // Ensure DOM is ready for insertion
+  const tryInsert = () => {
+    const viewerMain = document.querySelector('.viewer-main');
+    if (!viewerMain) {
+      setTimeout(tryInsert, 100);
+      return;
+    }
+    
+    const banner = document.createElement('div');
+    banner.className = 'expiry-banner';
+    const daysText = days === 0 ? 'today' : `in ${days} day${days === 1 ? '' : 's'}`;
+    
+    banner.innerHTML = `
+      <div class="expiry-content">
+        <span class="expiry-icon">⚠️</span>
+        <p>Your subscription expires <strong>${daysText}</strong>. Renew now to keep access!</p>
+        <a href="/#pricing" class="expiry-renew-btn">Renew Now</a>
+      </div>
+    `;
+    viewerMain.prepend(banner);
+    console.log('Expiry banner injected successfully');
+  };
 
-// ── State ─────────────────────────────────────────────────────────
+  tryInsert();
+}
+
+
 let openTabs     = [];   // [{ path, name, lang }]
 let activeTab    = null;
 
@@ -179,12 +237,9 @@ function showWelcome() {
 }
 
 // ── End session ───────────────────────────────────────────────────
-window.endSession = function () {
+window.endSession = async function () {
   if (confirm('End your session and return to the home page?')) {
-    sessionStorage.removeItem('cv_subscribed');
-    sessionStorage.removeItem('cv_plan');
-    sessionStorage.removeItem('cv_expires');
-    sessionStorage.removeItem('cv_payment_id');
+    await supabase.auth.signOut();
     window.location.href = '/';
   }
 };
@@ -199,5 +254,38 @@ style.textContent = `
     font-family: 'JetBrains Mono', monospace;
   }
   .code-line span:last-child { flex: 1; }
+
+  /* Expiry Banner Styles */
+  .expiry-banner {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  .expiry-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: #fde68a;
+  }
+  .expiry-renew-btn {
+    background: #f59e0b;
+    color: #000;
+    text-decoration: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+  }
+  .expiry-renew-btn:hover {
+    background: #fbbf24;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  }
 `;
 document.head.appendChild(style);

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeVault — Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <style>
+    .admin-layout { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
+    .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; border-radius: var(--radius); }
+    .stat-card h3 { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .stat-card .value { font-size: 2rem; font-weight: 800; color: var(--accent); }
+
+    .admin-table-wrapper { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+    th { background: var(--surface2); padding: 1rem 1.5rem; color: var(--text-dim); font-weight: 600; border-bottom: 1px solid var(--border); }
+    td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); color: var(--text); }
+    tr:last-child td { border-bottom: none; }
+    
+    .status-pill { padding: 0.2rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; }
+    .status-active { background: rgba(34,197,94,0.15); color: var(--green); }
+    .status-expired { background: rgba(239,68,68,0.15); color: var(--red); }
+    
+    .email-cell { font-weight: 600; }
+    .date-cell { color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+    
+    #admin-loading { padding: 4rem; text-align: center; color: var(--text-dim); }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">CodeVault Admin</span>
+      </a>
+      <a href="/" class="btn btn-ghost" style="font-size: 0.8rem; padding: 0.4rem 1rem;">Back to Site</a>
+    </div>
+  </nav>
+
+  <main class="admin-layout">
+    <header class="admin-header">
+      <div>
+        <h1 style="font-size: 2rem; font-weight: 800;">Management</h1>
+        <p style="color: var(--text-dim);">Overview of all users and active subscriptions.</p>
+      </div>
+      <button id="refresh-btn" class="btn btn-ghost">Refresh Data</button>
+    </header>
+
+    <div class="admin-stats">
+      <div class="stat-card">
+        <h3>Total Users</h3>
+        <div class="value" id="stat-total-users">-</div>
+      </div>
+      <div class="stat-card">
+        <h3>Active Subs</h3>
+        <div class="value" id="stat-active-subs" style="color: var(--green);">-</div>
+      </div>
+      <div class="stat-card">
+        <h3>Revenue (Est)</h3>
+        <div class="value" id="stat-revenue">-</div>
+      </div>
+    </div>
+
+    <div class="admin-table-wrapper">
+      <div id="admin-loading">Loading management data...</div>
+      <table id="admin-table" style="display: none;">
+        <thead>
+          <tr>
+            <th>User Email</th>
+            <th>Current Plan</th>
+            <th>Expiry Date</th>
+            <th>Status</th>
+            <th>Payment ID</th>
+          </tr>
+        </thead>
+        <tbody id="admin-tbody">
+          <!-- Rows will be injected here -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script type="module" src="/src/admin.js"></script>
+</body>
+</html>

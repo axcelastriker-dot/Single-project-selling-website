@@ -27,7 +27,24 @@
         <a href="#preview">Preview</a>
         <a href="#pricing">Pricing</a>
       </div>
-      <a href="#pricing" class="btn btn-nav">Get Access</a>
+      <div id="auth-actions" style="display:flex; gap: 0.5rem; align-items: center;">
+        <button id="nav-login-btn" class="btn btn-ghost" style="padding: 0.55rem 1rem; border:none;">Log In</button>
+        <button id="nav-signup-btn" class="btn btn-nav">Sign Up</button>
+      </div>
+      <div id="user-menu" class="user-menu">
+        <button class="user-btn" id="user-btn">
+          <span>👤</span> <span id="user-email-display">User</span>
+        </button>
+        <div class="user-dropdown" id="user-dropdown">
+          <div class="dropdown-info" id="subscription-info">
+            <p class="dropdown-label">Subscription Status</p>
+            <p class="dropdown-detail" id="sub-detail-plan">Loading...</p>
+            <p class="dropdown-detail sub-expiry" id="sub-detail-expiry"></p>
+          </div>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" id="logout-btn">Log Out</button>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -323,13 +340,74 @@
         </a>
         <p class="footer-copy">© 2026 CodeVault. All rights reserved.</p>
         <div class="footer-links">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Contact</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="mailto:accelastriker@gmail.com">Contact</a>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- ============================
+       AUTH MODAL
+  ============================== -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="close-modal">&times;</button>
+      <h2 class="modal-title" id="modal-title">Create Account</h2>
+      <p class="modal-sub" id="modal-sub">Sign up to get access to the code vault.</p>
+      
+      <form id="auth-form">
+        <div class="form-group">
+          <label class="form-label" for="auth-email">Email Address</label>
+          <input type="email" id="auth-email" class="form-input" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group" id="password-group">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label class="form-label" for="auth-password">Password</label>
+            <a id="forgot-password-link" style="font-size:0.75rem; color:var(--accent); cursor:pointer;">Forgot?</a>
+          </div>
+          <div class="password-input-wrapper">
+            <input type="password" id="auth-password" class="form-input" placeholder="••••••••" required />
+            <button type="button" class="password-toggle" data-target="auth-password">👁️</button>
+          </div>
+        </div>
+        <div class="modal-error" id="auth-error"></div>
+        <button type="submit" class="btn btn-primary btn-full" id="auth-submit-btn">Sign Up</button>
+      </form>
+
+      <!-- Password Reset Form (Hidden by default) -->
+      <form id="reset-form" style="display:none;">
+        <div class="form-group">
+          <label class="form-label" for="reset-email">Enter your email to receive a reset link</label>
+          <input type="email" id="reset-email" class="form-input" placeholder="you@example.com" required />
+        </div>
+        <div class="modal-error" id="reset-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">Send Reset Link</button>
+        <div class="modal-switch">
+          <a id="back-to-login">← Back to Log In</a>
+        </div>
+      </form>
+
+      <!-- New Password Form (Hidden by default) -->
+      <form id="new-password-form" style="display:none;">
+        <div class="form-group">
+          <label class="form-label" for="new-password">Enter your new password</label>
+          <div class="password-input-wrapper">
+            <input type="password" id="new-password" class="form-input" placeholder="••••••••" required />
+            <button type="button" class="password-toggle" data-target="new-password">👁️</button>
+          </div>
+        </div>
+        <div class="modal-error" id="new-password-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">Update Password</button>
+      </form>
+      
+      <div class="modal-switch" id="modal-switch-container">
+        <span id="modal-switch-text">Already have an account?</span> 
+        <a id="modal-switch-link">Log In</a>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="/src/main.js"></script>
 </body>
